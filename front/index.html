@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Évaluation de Stage Étudiants</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        h2 {
+            font-size: 20px;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0 30px;
+            height: 10px;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #4285f4;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .form-page {
+            display: none;
+        }
+
+        .form-page.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"], 
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .required::before {
+            content: "*";
+            color: #e53935;
+            margin-right: 4px;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .radio-option input {
+            margin-right: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .radio-cell {
+            text-align: center;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button.prev {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        button.next, button.submit {
+            background-color: #4285f4;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .info-text {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .competence-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .competence-label {
+            flex: 2;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        .competence-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Évaluation Stage Étudiants</h1>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="progress-labels">
+            <span>Page 1</span>
+            <span>Page 2</span>
+            <span>Page 3</span>
+            <span>Page 4</span>
+            <span>Page 5</span>
+        </div>
+
+        <!-- Page 1 -->
+        <div class="form-page active" id="page1">
+            <h2>Appréciation du tuteur de stage</h2>
+            
+            <div class="form-group">
+                <label for="nom-stagiaire">NOM et Prénom du stagiaire :</label>
+                <input type="text" id="nom-stagiaire" name="nom-stagiaire">
+            </div>
+            
+            <div class="form-group">
+                <label for="nom-entreprise">Nom de l'entreprise :</label>
+                <input type="text" id="nom-entreprise" name="nom-entreprise">
+            </div>
+            
+            <div class="form-group">
+                <label for="nom-tuteur">NOM et Prénom du tuteur :</label>
+                <input type="text" id="nom-tuteur" name="nom-tuteur">
+            </div>
+            
+            <div class="form-group">
+                <label for="periode">Période du stage du</label>
+                <input type="text" id="periode" name="periode" placeholder="JJ/MM/AAAA au JJ/MM/AAAA">
+            </div>
+            
+            <div class="form-group">
+                <label class="required" for="theme-projet">THÈME DU PROJET PRINCIPAL CONFIÉ À L'ÉTUDIANT(E)</label>
+                <textarea id="theme-projet" name="theme-projet"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="required" for="objectifs">OBJECTIFS ASSIGNÉS À L'ÉTUDIANT(E)</label>
+                <textarea id="objectifs" name="objectifs"></textarea>
+            </div>
+            
+            <div class="navigation">
+                <div></div>
+                <button type="button" class="next" onclick="nextPage()">Suivant</button>
+            </div>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="form-page" id="page2">
+            <h2>Appréciations globales sur l'étudiant(e)</h2>
+            
+            <div class="form-group">
+                <label class="required">IMPLICATION DANS SES ACTIVITÉS</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="implication1" name="implication" value="1">
+                        <label for="implication1">Paresseux</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="implication2" name="implication" value="2">
+                        <label for="implication2">Le juste nécessaire</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="implication3" name="implication" value="3">
+                        <label for="implication3">Bonne</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="implication4" name="implication" value="4">
+                        <label for="implication4">Très forte</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="implication5" name="implication" value="5">
+                        <label for="implication5">Dépasse ses objectifs</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="required">OUVERTURE AUX AUTRES</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="ouverture1" name="ouverture" value="1">
+                        <label for="ouverture1">Isolé(e) ou en opposition</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="ouverture2" name="ouverture" value="2">
+                        <label for="ouverture2">Renfermé(e) ou obtus</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="ouverture3" name="ouverture" value="3">
+                        <label for="ouverture3">Bonne</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="ouverture4" name="ouverture" value="4">
+                        <label for="ouverture4">Très bonne</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="ouverture5" name="ouverture" value="5">
+                        <label for="ouverture5">Excellente</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="required">QUALITÉ DE SES "PRODUCTIONS"</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="qualite1" name="qualite" value="1">
+                        <label for="qualite1">Médiocre</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="qualite2" name="qualite" value="2">
+                        <label for="qualite2">Acceptable</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="qualite3" name="qualite" value="3">
+                        <label for="qualite3">Bonne</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="qualite4" name="qualite" value="4">
+                        <label for="qualite4">Très bonne</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="qualite5" name="qualite" value="5">
+                        <label for="qualite5">Très professionnelle</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="required">OBSERVATIONS SUR L'ENSEMBLE DU TRAVAIL ACCOMPLI</label>
+                <textarea id="observations" name="observations"></textarea>
+            </div>
+            
+            <div class="navigation">
+                <button type="button" class="prev" onclick="prevPage()">Précédent</button>
+                <button type="button" class="next" onclick="nextPage()">Suivant</button>
+            </div>
+        </div>
+
+        <!-- Page 3 -->
+        <div class="form-page" id="page3">
+            <h2>Évaluations des compétences de l'étudiant(e)</h2>
+            
+            <div class="info-text">
+                Pour chaque compétence, les niveaux possibles sont :<br>
+                <strong>NA</strong> : Non applicable - Compétence non appliquée, ou trop peu<br>
+                <strong>DÉBUTANT</strong> : Applique, avec aide, les savoirs<br>
+                <strong>AUTONOME</strong> : Applique les pratiques de façon autonome<br>
+                <strong>AUTONOME +</strong> : Résout des problèmes selon la situation de travail - A un jugement critique pour anticiper ou s'adapter
+            </div>
+            
+            <div class="form-group">
+                <label class="required">Compétences liées à l'individu (cocher les cases)</label>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 60%"></th>
+                            <th class="text-center">NA</th>
+                            <th class="text-center">DÉBUTANT</th>
+                            <th class="text-center">AUTONOME</th>
+                            <th class="text-center">AUTONOME +</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Être capable d'analyse et de synthèse</td>
+                            <td class="radio-cell"><input type="radio" name="comp1" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp1" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp1" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp1" value="AUTONOME +"></td>
+                        </tr>
+                        <tr>
+                            <td>Être capable de proposer des méthodes et des axes de travail</td>
+                            <td class="radio-cell"><input type="radio" name="comp2" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp2" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp2" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp2" value="AUTONOME +"></td>
+                        </tr>
+                        <tr>
+                            <td>Être capable de faire adhérer les acteurs</td>
+                            <td class="radio-cell"><input type="radio" name="comp3" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp3" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp3" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp3" value="AUTONOME +"></td>
+                        </tr>
+                        <tr>
+                            <td>Être capable de travailler dans un contexte international et interculturel</td>
+                            <td class="radio-cell"><input type="radio" name="comp4" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp4" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp4" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp4" value="AUTONOME +"></td>
+                        </tr>
+                        <tr>
+                            <td>Être capable de s'autoévaluer</td>
+                            <td class="radio-cell"><input type="radio" name="comp5" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp5" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp5" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp5" value="AUTONOME +"></td>
+                        </tr>
+                        <tr>
+                            <td>Être capable d'identifier des problèmes complexes</td>
+                            <td class="radio-cell"><input type="radio" name="comp6" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp6" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp6" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp6" value="AUTONOME +"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="form-group">
+                <label class="required">Note pour évaluer les Compétences liées à l'individu.</label>
+                <p class="info-text">Cette note complète les évaluations qualitatives sans en être la conversion directe.<br>Donnez une note sur 20</p>
+                <input type="text" id="note-individu" name="note-individu" maxlength="5" style="width: 100px;">
+            </div>
+            
+            <div class="navigation">
+                <button type="button" class="prev" onclick="prevPage()">Précédent</button>
+                <button type="button" class="next" onclick="nextPage()">Suivant</button>
+            </div>
+        </div>
+
+        <!-- Page 4 -->
+        <div class="form-page" id="page4">
+            <h2>Compétences liées à l'entreprise</h2>
+            
+            <div class="form-group">
+                <label class="required">Compétences liées à l'entreprise (cocher les cases)</label>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 60%"></th>
+                            <th class="text-center">NA</th>
+                            <th class="text-center">DÉBUTANT</th>
+                            <th class="text-center">AUTONOME</th>
+                            <th class="text-center">AUTONOME +</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Être capable d'analyser le fonctionnement de l'entreprise d'accueil</td>
+                            <td class="radio-cell"><input type="radio" name="comp7" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp7" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp7" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp7" value="AUTONOME +"></td>
+                        </tr>
+                        <tr>
+                            <td>Être capable d'identifier la réglementation, hiérarchie, droit du travail, RSE, CHSCT, CE, etc.</td>
+                            <td class="radio-cell"><input type="radio" name="comp8" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp8" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp8" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp8" value="AUTONOME +"></td>
+                        </tr>
+                        <tr>
+                            <td>Être capable d'analyser la démarche projet, et d'organiser et de structurer un projet</td>
+                            <td class="radio-cell"><input type="radio" name="comp9" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp9" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp9" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp9" value="AUTONOME +"></td>
+                        </tr>
+                        <tr>
+                            <td>Être capable d'apprendre à décoder et à comprendre la politique environnementale de l'entreprise</td>
+                            <td class="radio-cell"><input type="radio" name="comp10" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp10" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp10" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp10" value="AUTONOME +"></td>
+                        </tr>
+                        <tr>
+                            <td>Être capable de rechercher, de sélectionner l'information nécessaire à ses activités</td>
+                            <td class="radio-cell"><input type="radio" name="comp11" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp11" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp11" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp11" value="AUTONOME +"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="form-group">
+                <label class="required">Note pour évaluer les Compétences liées à l'entreprise.</label>
+                <p class="info-text">Donnez une note sur 20</p>
+                <input type="text" id="note-entreprise" name="note-entreprise" maxlength="5" style="width: 100px;">
+            </div>
+            
+            <div class="form-group">
+                <label class="required">Compétences scientifiques et techniques (cocher les cases)</label>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 60%"></th>
+                            <th class="text-center">NA</th>
+                            <th class="text-center">DÉBUTANT</th>
+                            <th class="text-center">AUTONOME</th>
+                            <th class="text-center">AUTONOME +</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Être capable d'assurer la conception préliminaire de produits / services / processus / usages</td>
+                            <td class="radio-cell"><input type="radio" name="comp12" value="NA"></td>
+                            <td class="radio-cell"><input type="radio" name="comp12" value="DÉBUTANT"></td>
+                            <td class="radio-cell"><input type="radio" name="comp12" value="AUTONOME"></td>
+                            <td class="radio-cell"><input type="radio" name="comp12" value="AUTONOME +"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="navigation">
+                <button type="button" class="prev" onclick="prevPage()">Précédent</button>
+                <button type="button" class="next" onclick="nextPage()">Suivant</button>
+            </div>
+        </div>
+
+        <!-- Page 5 -->
+        <div class="form-page" id="page5">
+            <h2>Compétences scientifiques et techniques</h2>
+            
+            <div class="form-group">
+                <label class="required">Note pour évaluer les Compétences scientifiques et techniques, dont métier</label>
+                <p class="info-text">Donnez une note sur 20</p>
+                <input type="text" id="note-scientifique" name="note-scientifique" maxlength="5" style="width: 100px;">
+            </div>
+            
+            <div class="form-group">
+                <h3>Compétences spécifiques métier (à ajouter selon besoin)</h3>
+                <p class="info-text">Évaluez chaque compétence avec un des trois niveaux suivants : DÉBUTANT, AUTONOME ou AUTONOME +.</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 10%"></th>
+                            <th style="width: 45%">Compétence</th>
+                            <th style="width: 45%">Évaluation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><input type="text" name="comp-spec-1"></td>
+                            <td>
+                                <select name="eval-spec-1" style="width: 100%; padding: 8px;">
+                                    <option value="">Sélectionner</option>
+                                    <option value="DÉBUTANT">DÉBUTANT</option>
+                                    <option value="AUTONOME">AUTONOME</option>
+                                    <option value="AUTONOME +">AUTONOME +</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><input type="text" name="comp-spec-2"></td>
+                            <td>
+                                <select name="eval-spec-2" style="width: 100%; padding: 8px;">
+                                    <option value="">Sélectionner</option>
+                                    <option value="DÉBUTANT">DÉBUTANT</option>
+                                    <option value="AUTONOME">AUTONOME</option>
+                                    <option value="AUTONOME +">AUTONOME +</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><input type="text" name="comp-spec-3"></td>
+                            <td>
+                                <select name="eval-spec-3" style="width: 100%; padding: 8px;">
+                                    <option value="">Sélectionner</option>
+                                    <option value="DÉBUTANT">DÉBUTANT</option>
+                                    <option value="AUTONOME">AUTONOME</option>
+                                    <option value="AUTONOME +">AUTONOME +</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><input type="text" name="comp-spec-4"></td>
+                            <td>
+                                <select name="eval-spec-4" style="width: 100%; padding: 8px;">
+                                    <option value="">Sélectionner</option>
+                                    <option value="DÉBUTANT">DÉBUTANT</option>
+                                    <option value="AUTONOME">AUTONOME</option>
+                                    <option value="AUTONOME +">AUTONOME +</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><input type="text" name="comp-spec-5"></td>
+                            <td>
+                                <select name="eval-spec-5" style="width: 100%; padding: 8px;">
+                                    <option value="">Sélectionner</option>
+                                    <option value="DÉBUTANT">DÉBUTANT</option>
+                                    <option value="AUTONOME">AUTONOME</option>
+                                    <option value="AUTONOME +">AUTONOME +</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="navigation">
+                <button type="button" class="prev" onclick="prevPage()">Précédent</button>
+                <button type="button" class="submit" onclick="submitForm()">Envoyer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 5;
+        
+        // Update progress bar
+        function updateProgressBar() {
+            const progressPercentage = ((currentPage - 1) / (totalPages - 1)) * 100;
+            document.getElementById('progress-bar').style.width = progressPercentage + '%';
+        }
+        
+        // Go to next page
+        function nextPage() {
+            if (currentPage < totalPages) {
+                document.getElementById('page' + currentPage).classList.remove('active');
+                currentPage++;
+                document.getElementById('page' + currentPage).classList.add('active');
+                updateProgressBar();
+                window.scrollTo(0, 0);
+            }
+        }
+        
+        // Go to previous page
+        function prevPage() {
+            if (currentPage > 1) {
+                document.getElementById('page' + currentPage).classList.remove('active');
+                currentPage--;
+                document.getElementById('page' + currentPage).classList.add('active');
+                updateProgressBar();
+                window.scrollTo(0, 0);
+            }
+        }
+        
+        // Submit form
+        function submitForm() {
+            // Ici, vous pourriez ajouter du code pour envoyer les données à un serveur
+            alert('Formulaire soumis avec succès !');
+            // Ou rediriger vers une page de confirmation
+            // window.location.href = 'confirmation.html';
+        }
+        
+        // Initialiser la barre de progression au chargement
+        updateProgressBar();
+    </script>
+</body>
+</html>

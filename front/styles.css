@@ -1,0 +1,225 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+h1 {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+h2 {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin: 20px 0 30px;
+    height: 10px;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4285f4;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+.form-page {
+    display: none;
+}
+
+.form-page.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="text"], 
+input[type="number"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.required::before {
+    content: "*";
+    color: #e53935;
+    margin-right: 4px;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.radio-option input {
+    margin-right: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f5f5f5;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.radio-cell {
+    text-align: center;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button.prev {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+button.next, button.submit {
+    background-color: #4285f4;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.info-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.competence-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.competence-label {
+    flex: 2;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.competence-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.date-range {
+    margin-bottom: 20px;
+}
+
+.date-inputs {
+    display: flex;
+    gap: 20px;
+}
+
+.date-field {
+    flex: 1;
+}
+
+.error-message {
+    color: #e53935;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
